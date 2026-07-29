@@ -1,0 +1,60 @@
+package inductionRecursion;
+import java.util.Scanner;
+
+public class PowerOfSelf {
+	
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		boolean keepGoing = true;
+		
+		System.out.println("--- Recursion Program: X to the power of X ---");
+		
+		while (keepGoing) {
+			
+			int x = getVaildInteger(scanner);
+			
+			if (x < 0) {
+				System.out.println("Please enter a non-negative integer.");
+				continue;
+			}
+			
+			long result = computePower(x, x);
+			
+			System.out.println("Output: " + result);
+			System.out.println();
+			
+			System.out.println(" Do you want to enter another number? (yes/no): ");
+			String response = scanner.next().trim().toLowerCase();
+			
+			if (!response.startsWith("y")) {
+				keepGoing = false;
+			}
+			System.out.println();
+		}
+		
+		System.out.println("Program exited. Goodbye!");
+		scanner.close();
+	}
+	
+	public static long computePower(int base, int exponent) {
+		
+		if (exponent == 0) {
+			return 1;
+		}
+		
+		return base * computePower(base, exponent - 1);
+	}
+	
+	private static int getVaildInteger(Scanner scanner) {
+		while (true) {
+			System.out.print("Input: ");
+			if (scanner.hasNextInt()) {
+				return scanner.nextInt();
+			} else {
+				System.out.println("Error: Invalid input. Please enter a whole integer.");
+				scanner.next();
+			}
+		}
+	}
+}
+
